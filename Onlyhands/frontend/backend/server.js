@@ -8,7 +8,7 @@ const port = 3000;
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-const drive = google.drive({ version: 'v3', auth: 'YOUR_API_KEY' });
+const drive = google.drive({ version: 'v3', auth: 'AIzaSyAKAvKjAssCD3G16XwnGs6wwpUATglQt8A' });
 
 app.post("/api/upload", upload.single('file'), (req, res) => {
     const file = req.file;
