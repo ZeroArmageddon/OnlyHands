@@ -14,10 +14,9 @@ const upload = multer({ dest: 'uploads/' }); // A fájlok ide kerülnek előszö
 
 // Google API hitelesítés
 const oauth2Client = new OAuth2(
-  '1oKnIrWkr3ACP3Wv709gl6hE6ZjBlms3I', // A te Client ID-d
+  '1023319210082-jhf7pubcbkg3kmmmh5otoioatpblk18i.apps.googleusercontent.com', // A te Client ID-d
   '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', // A te Client Secret-ed
-  '1023319210082-jhf7pubcbkg3kmmmh5otoioatpblk18i.apps.googleusercontent.com
-' // A te redirect URI-d
+  'https://www.zerosites.olyhands.com' // A te redirect URI-d
 );
 
 // Fájl feltöltése a Google Drive-ra
