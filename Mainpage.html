@@ -194,10 +194,16 @@
                 alert("Please select an image to upload.");
                 return;
             }
-            uploads.push("Image " + (uploads.length + 1));
-            localStorage.setItem(currentUser + "_uploads", JSON.stringify(uploads));
-            alert("Image uploaded successfully!");
-            renderGallery();
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageUrl = e.target.result;
+                uploads.push(imageUrl);
+                localStorage.setItem(currentUser + "_uploads", JSON.stringify(uploads));
+                alert("Image uploaded successfully!");
+                renderGallery();
+            };
+            reader.readAsDataURL(file);
         }
 
         // Render gallery
@@ -210,7 +216,7 @@
                 const imageContainer = document.createElement("div");
                 imageContainer.className = "image-container";
                 imageContainer.innerHTML = `
-                    <img src="placeholder.jpg" alt="Uploaded Image">
+                    <img src="${image}" alt="Uploaded Image">
                     <div class="like-section">Likes: <span id="like-count-${index}">0</span></div>
                     <button class="like-button" onclick="likeImage(${index})">Like</button>
                 `;
@@ -220,14 +226,28 @@
 
         // Like image
         function likeImage(index) {
+            const currentUser = localStorage.getItem("currentUser");
+            if (!currentUser) {
+                alert("Please log in to like images.");
+                return;
+            }
+            const likesKey = currentUser + "_likes";
+            const likes = JSON.parse(localStorage.getItem(likesKey) || "[]");
+            if (likes.includes(index)) {
+                alert("You have already liked this image.");
+                return;
+            }
+            likes.push(index);
+            localStorage.setItem(likesKey, JSON.stringify(likes));
             const likeCountId = "like-count-" + index;
-            let likes = parseInt(document.getElementById(likeCountId).textContent, 10);
-            likes += 1;
-            document.getElementById(likeCountId).textContent = likes;
+            let likesCount = parseInt(document.getElementById(likeCountId).textContent, 10);
+            document.getElementById(likeCountId).textContent = ++likesCount;
+            document.querySelector(`.like-button[onclick="likeImage(${index})"]`).disabled = true;
         }
 
         renderGallery(); // Initial gallery render
     </script>
 </body>
 </html>
+
 
