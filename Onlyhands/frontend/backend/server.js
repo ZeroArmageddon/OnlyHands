@@ -34,7 +34,7 @@ app.post("/api/upload", upload.single('file'), (req, res) => {
 
 app.get("/api/getImages", (req, res) => {
     drive.files.list({
-        q: "'your-folder-id' in parents",
+        q: "'1oKnIrWkr3ACP3Wv709gl6hE6ZjBlms3I' in parents",
         fields: "files(id, name)",
     }, (err, response) => {
         if (err) {
