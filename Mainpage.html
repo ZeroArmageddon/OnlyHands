@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OnlyHands - Főoldal</title>
+    <title>OnlyHands - Home</title>
     <style>
+        /* Basic styling */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f4f9;
+            margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 0;
-            margin: 0;
         }
         header {
             width: 100%;
@@ -21,153 +21,213 @@
             text-align: center;
             padding: 20px 0;
             font-size: 2em;
-            font-weight: bold;
         }
+        /* Gallery */
         .gallery {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
-            margin-top: 20px;
             padding: 20px;
+            margin-top: 20px;
         }
         .image-container {
-            position: relative;
-            width: 300px;
-            height: 400px;
-            background-color: white;
+            width: 250px;
+            background: white;
             border-radius: 8px;
-            overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
-            padding: 10px;
+            padding: 15px;
+            position: relative;
         }
         .image-container img {
             width: 100%;
             height: auto;
         }
-        .image-container .like-button {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #FF4081;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.3s;
-        }
-        .image-container .like-button:hover {
-            background-color: #f73378;
-        }
-        .profile-link {
-            position: absolute;
-            bottom: 40px;
-            width: 100%;
-            font-size: 0.9em;
+        .like-section, .profile-link {
+            margin-top: 10px;
             color: #FF4081;
-            text-decoration: none;
+            font-weight: bold;
         }
         .profile-link:hover {
             text-decoration: underline;
         }
-        .upload-section {
-            margin-top: 50px;
-            text-align: center;
-        }
-        input[type="file"] {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-        .signup-section {
-            margin-top: 30px;
-            text-align: center;
-        }
-        input[type="text"], input[type="password"] {
-            padding: 10px;
-            margin: 10px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-        button {
-            background-color: #FF4081;
+        .like-button {
+            margin-top: 5px;
+            padding: 8px 15px;
+            background: #FF4081;
             color: white;
-            padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 1em;
         }
-        button:hover {
-            background-color: #f73378;
+        .like-button:disabled {
+            background: #ddd;
+            cursor: default;
+        }
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: -300px;
+            top: 0;
+            width: 300px;
+            height: 100%;
+            background-color: #FF4081;
+            color: white;
+            padding: 20px;
+            transition: left 0.3s ease;
+        }
+        .sidebar.active {
+            left: 0;
+        }
+        .sidebar h2 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+        .sidebar input[type="text"], .sidebar input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        .sidebar button {
+            width: 100%;
+            padding: 10px;
+            background-color: white;
+            color: #FF4081;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .toggle-sidebar {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #FF4081;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        /* Upload section */
+        .upload-section {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .upload-section input[type="file"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
         }
     </style>
 </head>
 <body>
     <header>OnlyHands</header>
 
-    <div class="gallery">
-        <!-- Dynamic image list -->
-        <div class="image-container" id="image1">
-            <img src="path/to/image1.jpg" alt="Image 1">
-            <a href="profile.html?id=1" class="profile-link">Kép készítő profilja</a>
-            <button class="like-button" onclick="likeImage('image1')">Like</button>
-        </div>
-        <div class="image-container" id="image2">
-            <img src="path/to/image2.jpg" alt="Image 2">
-            <a href="profile.html?id=2" class="profile-link">Kép készítő profilja</a>
-            <button class="like-button" onclick="likeImage('image2')">Like</button>
-        </div>
-        <!-- Additional images will be added dynamically -->
+    <button class="toggle-sidebar" onclick="toggleSidebar()">Login/Register</button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h2>Login or Register</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="register()">Register</button>
+        <button onclick="login()">Login</button>
     </div>
 
+    <!-- Gallery -->
+    <div class="gallery" id="gallery">
+        <!-- Dynamic images will appear here -->
+    </div>
+
+    <!-- Upload Section -->
     <div class="upload-section">
-        <h2>Feltöltés</h2>
+        <h2>Upload Image</h2>
         <input type="file" id="imageUpload" accept="image/*">
-        <button onclick="uploadImage()">Feltöltés</button>
-    </div>
-
-    <div class="signup-section">
-        <h2>Fiók létrehozása</h2>
-        <input type="text" id="username" placeholder="Felhasználónév">
-        <input type="password" id="password" placeholder="Jelszó">
-        <button onclick="createAccount()">Fiók létrehozása</button>
+        <button onclick="uploadImage()">Upload</button>
+        <p id="uploadNotice"></p>
     </div>
 
     <script>
-        function likeImage(imageId) {
-            var button = document.getElementById(imageId).querySelector('.like-button');
-            if (button) {
-                button.disabled = true; // Disable button after being clicked
-                button.style.backgroundColor = '#ccc'; // Change color to show it's liked
+        const MAX_UPLOADS = 10;
+
+        // Toggle sidebar
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("active");
+        }
+
+        // Register user
+        function register() {
+            const username = document.getElementById("username").value;
+            if (username) {
+                localStorage.setItem("currentUser", username);
+                alert("Registered successfully as " + username);
             }
         }
 
+        // Login user
+        function login() {
+            const username = document.getElementById("username").value;
+            if (username) {
+                localStorage.setItem("currentUser", username);
+                alert("Logged in as " + username);
+            }
+        }
+
+        // Upload image
         function uploadImage() {
-            var fileInput = document.getElementById('imageUpload');
-            var file = fileInput.files[0];
-            if (file) {
-                alert('Kép feltöltve!');
-                // Code to handle image upload to server goes here
-            } else {
-                alert('Válassz egy képet!');
+            const currentUser = localStorage.getItem("currentUser");
+            if (!currentUser) {
+                alert("Please log in to upload images.");
+                return;
             }
+            const uploads = JSON.parse(localStorage.getItem(currentUser + "_uploads") || "[]");
+            if (uploads.length >= MAX_UPLOADS) {
+                document.getElementById("uploadNotice").textContent = "Upload limit reached (10 images).";
+                return;
+            }
+            const fileInput = document.getElementById("imageUpload");
+            if (fileInput.files.length === 0) {
+                alert("Please select an image to upload.");
+                return;
+            }
+            uploads.push("Image " + (uploads.length + 1));
+            localStorage.setItem(currentUser + "_uploads", JSON.stringify(uploads));
+            alert("Image uploaded successfully!");
+            renderGallery();
         }
 
-        function createAccount() {
-            var username = document.getElementById('username').value;
-            var password = document.getElementById('password').value;
-            if (username && password) {
-                alert('Fiók létrehozva!');
-                // Code to create a new user account goes here
-            } else {
-                alert('Töltsd ki a mezőket!');
-            }
+        // Render gallery
+        function renderGallery() {
+            const gallery = document.getElementById("gallery");
+            gallery.innerHTML = "";
+            const currentUser = localStorage.getItem("currentUser");
+            const uploads = JSON.parse(localStorage.getItem(currentUser + "_uploads") || "[]");
+            uploads.forEach((image, index) => {
+                const imageContainer = document.createElement("div");
+                imageContainer.className = "image-container";
+                imageContainer.innerHTML = `
+                    <img src="placeholder.jpg" alt="Uploaded Image">
+                    <div class="like-section">Likes: <span id="like-count-${index}">0</span></div>
+                    <button class="like-button" onclick="likeImage(${index})">Like</button>
+                `;
+                gallery.appendChild(imageContainer);
+            });
         }
+
+        // Like image
+        function likeImage(index) {
+            const likeCountId = "like-count-" + index;
+            let likes = parseInt(document.getElementById(likeCountId).textContent, 10);
+            likes += 1;
+            document.getElementById(likeCountId).textContent = likes;
+        }
+
+        renderGallery(); // Initial gallery render
     </script>
 </body>
 </html>
+
