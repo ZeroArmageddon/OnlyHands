@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnlyHands - Főoldal</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+        }
+        header {
+            width: 100%;
+            background-color: #FF4081;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            padding: 20px;
+        }
+        .image-container {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 10px;
+        }
+        .image-container img {
+            width: 100%;
+            height: auto;
+        }
+        .image-container .like-button {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #FF4081;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        .image-container .like-button:hover {
+            background-color: #f73378;
+        }
+        .profile-link {
+            position: absolute;
+            bottom: 40px;
+            width: 100%;
+            font-size: 0.9em;
+            color: #FF4081;
+            text-decoration: none;
+        }
+        .profile-link:hover {
+            text-decoration: underline;
+        }
+        .upload-section {
+            margin-top: 50px;
+            text-align: center;
+        }
+        input[type="file"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .signup-section {
+            margin-top: 30px;
+            text-align: center;
+        }
+        input[type="text"], input[type="password"] {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        button {
+            background-color: #FF4081;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #f73378;
+        }
+    </style>
+</head>
+<body>
+    <header>OnlyHands</header>
+
+    <div class="gallery">
+        <!-- Dynamic image list -->
+        <div class="image-container" id="image1">
+            <img src="path/to/image1.jpg" alt="Image 1">
+            <a href="profile.html?id=1" class="profile-link">Kép készítő profilja</a>
+            <button class="like-button" onclick="likeImage('image1')">Like</button>
+        </div>
+        <div class="image-container" id="image2">
+            <img src="path/to/image2.jpg" alt="Image 2">
+            <a href="profile.html?id=2" class="profile-link">Kép készítő profilja</a>
+            <button class="like-button" onclick="likeImage('image2')">Like</button>
+        </div>
+        <!-- Additional images will be added dynamically -->
+    </div>
+
+    <div class="upload-section">
+        <h2>Feltöltés</h2>
+        <input type="file" id="imageUpload" accept="image/*">
+        <button onclick="uploadImage()">Feltöltés</button>
+    </div>
+
+    <div class="signup-section">
+        <h2>Fiók létrehozása</h2>
+        <input type="text" id="username" placeholder="Felhasználónév">
+        <input type="password" id="password" placeholder="Jelszó">
+        <button onclick="createAccount()">Fiók létrehozása</button>
+    </div>
+
+    <script>
+        function likeImage(imageId) {
+            var button = document.getElementById(imageId).querySelector('.like-button');
+            if (button) {
+                button.disabled = true; // Disable button after being clicked
+                button.style.backgroundColor = '#ccc'; // Change color to show it's liked
+            }
+        }
+
+        function uploadImage() {
+            var fileInput = document.getElementById('imageUpload');
+            var file = fileInput.files[0];
+            if (file) {
+                alert('Kép feltöltve!');
+                // Code to handle image upload to server goes here
+            } else {
+                alert('Válassz egy képet!');
+            }
+        }
+
+        function createAccount() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            if (username && password) {
+                alert('Fiók létrehozva!');
+                // Code to create a new user account goes here
+            } else {
+                alert('Töltsd ki a mezőket!');
+            }
+        }
+    </script>
+</body>
+</html>
